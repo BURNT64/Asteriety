@@ -135,6 +135,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 3
-  speed: 3
-  drift: 0.6
+  speed: 2.5
+  drift: 0
   cleanupRadius: 20
