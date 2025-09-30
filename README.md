@@ -19,15 +19,6 @@ Every 5th wave escalates into a boss encounter with unique mechanics.
 - C#
 - TextMeshPro for UI
 
-## 📅 Roadmap
-- [ ] Add asteroid prefabs + spawner
-- [ ] Implement health + debris drops
-- [ ] Build wave director for progression
-- [ ] Add upgrades (temporary + persistent)
-- [ ] Introduce special asteroid types
-- [ ] Boss fights every 5th wave
-- [ ] Pixel art + retro sound effects
-
 ## 🤝 Contributing
 This is a solo portfolio project, but feedback and suggestions are welcome!
 
