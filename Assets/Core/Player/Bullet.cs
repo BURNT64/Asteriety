@@ -16,5 +16,15 @@ public class Bullet : MonoBehaviour
     {
         transform.Translate(dir * speed * Time.deltaTime, Space.World);
     }
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        var asteroid = other.GetComponent<Asteroid>();
+        if (asteroid != null)
+        {
+            asteroid.Hit(1);
+            Destroy(gameObject);
+        }
+    }
 }
 
