@@ -44,7 +44,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4069727871840141329, guid: b843ada9fdda66f4babedafdde87f213, type: 3}
+  fireMode: 0
   fireRate: 6
+  projectilesPerShot: 1
+  spreadDeg: 0
 --- !u!1 &7638074492140869215
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +59,6 @@ GameObject:
   - component: {fileID: 7638074492140869213}
   - component: {fileID: 7638074492140869214}
   - component: {fileID: 7638074492140869212}
-  - component: {fileID: 7638074492140869187}
   - component: {fileID: 7638074492140869186}
   - component: {fileID: 7638074492140869185}
   - component: {fileID: 140929877293861070}
@@ -146,20 +148,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 720
---- !u!114 &7638074492140869187
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7638074492140869215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a931e436f1131b54a964bce87e242d20, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4069727871840141329, guid: b843ada9fdda66f4babedafdde87f213, type: 3}
-  fireRate: 6
 --- !u!50 &7638074492140869186
 Rigidbody2D:
   serializedVersion: 4

@@ -4,6 +4,8 @@ public class Bullet : MonoBehaviour
 {
     public float speed = 20f;
     public float lifetime = 2f;
+    public int damage = 1;   // set by WeaponMount
+
     Vector2 dir;
 
     public void Init(Vector2 direction)
@@ -22,9 +24,8 @@ public class Bullet : MonoBehaviour
         var asteroid = other.GetComponent<Asteroid>();
         if (asteroid != null)
         {
-            asteroid.Hit(1);
+            asteroid.Hit(damage);
             Destroy(gameObject);
         }
     }
 }
-

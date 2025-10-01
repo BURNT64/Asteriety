@@ -435,8 +435,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 124.5, y: -49}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 158.16034, y: -53.08008}
+  m_SizeDelta: {x: 267.3207, y: 58.1601}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1731119337
 MonoBehaviour:
@@ -497,8 +497,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -650,6 +650,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7638074491086955104, guid: 263a51ba52c766146bb2be7989abeaca, type: 3}
+      propertyPath: fireMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7638074491086955104, guid: 263a51ba52c766146bb2be7989abeaca, type: 3}
+      propertyPath: spreadDeg
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7638074491086955104, guid: 263a51ba52c766146bb2be7989abeaca, type: 3}
+      propertyPath: projectilesPerShot
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fireMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: fireRate
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: spreadDeg
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: bulletDamage
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 0}
+      propertyPath: projectilesPerShot
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7638074492140869213, guid: 263a51ba52c766146bb2be7989abeaca, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -698,5 +730,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ShipRoot
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 263a51ba52c766146bb2be7989abeaca, type: 3}
