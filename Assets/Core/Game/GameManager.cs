@@ -4,13 +4,15 @@ public class GameManager : MonoBehaviour
 {
     public static int Debris;
 
-    void Update()
+    void Awake()
     {
-        // Temporary: add debris when pressing Space
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debris++;
-            Debug.Log("Debris: " + Debris);
-        }
+        Debris = 0; // reset at start of game
+    }
+
+    public static void AddDebris(int amount)
+    {
+        Debris += amount;
+        Debug.Log("Debris: " + Debris);
+        // later: update HUD here instead of Debug.Log
     }
 }

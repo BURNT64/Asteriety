@@ -7,6 +7,9 @@ public class Asteroid : MonoBehaviour
     [Range(0f, 1.5f)] public float drift = 0.6f;   // tangential variance
     public float cleanupRadius = 30f;               // relative to center
 
+    [Header("Drops")]
+    public GameObject debrisPickupPrefab;           // assign in Inspector
+
     int hp;
     Vector2 vel;
     Vector2 center;
@@ -41,5 +44,28 @@ public class Asteroid : MonoBehaviour
             Destroy(gameObject);
     }
 
-    void Die() { Destroy(gameObject); }
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            // TODO: optional tiny explosion VFX/SFX here
+            Destroy(gameObject);
+        }
+    }
+
+    void Die()
+    {
+        // spawn 1–2 debris pickups around the death spot
+        if (debrisPickupPrefab != null)
+        {
+            int count = Random.Range(1, 3);
+            for (int i = 0; i < count; i++)
+            {
+                Vector2 off = Random.insideUnitCircle * 0.3f;
+                Instantiate(debrisPickupPrefab, transform.position + (Vector3)off, Quaternion.identity);
+            }
+        }
+
+        Destroy(gameObject);
+    }
 }
