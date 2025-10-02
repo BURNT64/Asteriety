@@ -7,6 +7,9 @@ public class Asteroid : MonoBehaviour
     [Range(0f, 1.5f)] public float drift = 0.6f;
     public float cleanupRadius = 30f;
 
+    [Header("Combat")]
+    public int contactDamage = 1; // damage dealt to player on collision
+
     [Header("Drops & VFX")]
     public GameObject debrisPickupPrefab;
     public GameObject explosionPrefab;   // optional small particle pop
@@ -50,9 +53,8 @@ public class Asteroid : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            // Deal damage via PlayerHealth, then explode
             var hpComp = other.GetComponent<PlayerHealth>();
-            if (hpComp != null) hpComp.TakeHit(1);
+            if (hpComp != null) hpComp.TakeHit(contactDamage); // use per-asteroid damage
             ExplodeAndDie();
         }
     }
@@ -62,16 +64,12 @@ public class Asteroid : MonoBehaviour
         if (dying) return;
         dying = true;
 
-        // VFX
         if (explosionPrefab)
-        {
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
-        }
 
-        // Drops
         if (debrisPickupPrefab != null)
         {
-            int count = Random.Range(1, 3); // 1–2
+            int count = Random.Range(1, 3); // 1-2
             for (int i = 0; i < count; i++)
             {
                 Vector2 off = Random.insideUnitCircle * 0.3f;
@@ -79,10 +77,7 @@ public class Asteroid : MonoBehaviour
             }
         }
 
-        // Notify wave director if you have one (optional)
-        //var dir = FindObjectOfType<WaveDirector>();
-        //if (dir) dir.OnAsteroidDied();
-
+        // If you add a WaveDirector later, notify it here.
         Destroy(gameObject);
     }
 }

@@ -4,7 +4,7 @@ using System.Collections;
 public class AsteroidSpawner : MonoBehaviour
 {
     [Header("Refs")]
-    public GameObject asteroidPrefab;
+    public GameObject[] asteroidPrefabs;            // assign variants here
     public Transform centerRef;                     // assign WorldCenter
     public Vector2 fallbackCenter = new Vector2(55f, -48f);
 
@@ -39,19 +39,30 @@ public class AsteroidSpawner : MonoBehaviour
         }
     }
 
+    public void SpawnBurst(int count)
+    {
+        for (int i = 0; i < count; i++) SpawnOne();
+    }
+
     void SpawnOne()
     {
+        if (asteroidPrefabs == null || asteroidPrefabs.Length == 0) return;
+
         Vector2 center = centerRef ? (Vector2)centerRef.position : fallbackCenter;
 
-        // consistent angle generation (deterministic if useSeed == true)
+        // deterministic or random angle
         float angle = useSeed ? (float)(rng.NextDouble() * Mathf.PI * 2f)
                               : Random.Range(0f, Mathf.PI * 2f);
 
         Vector2 pos = center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * spawnRadius;
 
-        // instantiate at the position and tell the asteroid what to aim at
-        var go = Instantiate(asteroidPrefab, pos, Quaternion.identity);
-        go.GetComponent<Asteroid>().Init(pos, center);
+        // pick a random variant from the array
+        int idx = useSeed ? rng.Next(asteroidPrefabs.Length) : Random.Range(0, asteroidPrefabs.Length);
+        var prefab = asteroidPrefabs[idx];
+
+        var go = Instantiate(prefab, pos, Quaternion.identity);
+        var a = go.GetComponent<Asteroid>();
+        if (a != null) a.Init(pos, center);
     }
 
 #if UNITY_EDITOR

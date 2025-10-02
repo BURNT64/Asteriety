@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5220024659646935915}
   - component: {fileID: 7909571159203988719}
   m_Layer: 0
-  m_Name: Asteroid
+  m_Name: Medium Asteroid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -135,7 +135,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 3
-  speed: 2.5
+  speed: 2
   drift: 0
   cleanupRadius: 20
+  contactDamage: 2
   debrisPickupPrefab: {fileID: 1061433892538881913, guid: 91e4ea7fd042da34e822af9ca72cfc8c, type: 3}
+  explosionPrefab: {fileID: 0}

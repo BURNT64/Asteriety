@@ -152,7 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c34e4c475f6df0a42993b10accc63375, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  asteroidPrefab: {fileID: 4347061867676918000, guid: 8885192611ea8834d9a21543eb042795, type: 3}
+  asteroidPrefabs:
+  - {fileID: 7146173476079214246, guid: fa29b8a8b92431149a91214f93bd7858, type: 3}
+  - {fileID: 4347061867676918000, guid: 8885192611ea8834d9a21543eb042795, type: 3}
+  - {fileID: 7822838774271736598, guid: b4bfbe1491294b54bbb90bccce515f34, type: 3}
   centerRef: {fileID: 1900467787}
   fallbackCenter: {x: 10.9, y: -15.1}
   spawnRadius: 12
@@ -566,7 +569,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1452337196
 RectTransform:
   m_ObjectHideFlags: 0

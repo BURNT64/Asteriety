@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e72a7d412958ec49a931f3878b3d11d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHP: 3
+  maxHP: 25
   hpLabel: {fileID: 0}
   gameOverPanel: {fileID: 0}
   hitCooldown: 0.2
