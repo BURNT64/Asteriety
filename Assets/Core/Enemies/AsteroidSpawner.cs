@@ -5,28 +5,37 @@ public class AsteroidSpawner : MonoBehaviour
 {
     [Header("Refs")]
     public GameObject[] asteroidPrefabs;            // assign variants here
-    public Transform centerRef;                     // assign WorldCenter
+    public Transform centerRef;                     // optional; else uses fallbackCenter
     public Vector2 fallbackCenter = new Vector2(55f, -48f);
 
     [Header("Spawn Shape")]
     public float spawnRadius = 12f;                 // ring distance from center
-    public float spawnEvery = 1.0f;                 // seconds between spawns
-    public int burstCount = 1;                      // how many per tick
+    public float spawnEvery = 1.0f;                 // used only if runContinuousLoop = true
+    public int burstCount = 1;                      // used only if runContinuousLoop = true
+
+    [Header("Mode")]
+    public bool runContinuousLoop = false;          // FALSE when WaveDirector controls spawns
 
     [Header("Determinism (optional)")]
     public bool useSeed = true;
     public int sessionSeed = 12345;
 
     System.Random rng;
+    Coroutine activeSequence;
 
-    void Start()
+    void Awake()
     {
         if (useSeed)
         {
             rng = new System.Random(sessionSeed);
             Random.InitState(sessionSeed);
         }
-        StartCoroutine(SpawnLoop());
+    }
+
+    void Start()
+    {
+        if (runContinuousLoop)
+            StartCoroutine(SpawnLoop());
     }
 
     IEnumerator SpawnLoop()
@@ -39,27 +48,57 @@ public class AsteroidSpawner : MonoBehaviour
         }
     }
 
+    // Instant burst (kept for utility, e.g., debug)
     public void SpawnBurst(int count)
     {
         for (int i = 0; i < count; i++) SpawnOne();
     }
 
+    // NEW: spawn a wave over time instead of all-at-once
+    public Coroutine SpawnSequence(int count, float firstDelay, float perSpawnInterval)
+    {
+        if (activeSequence != null) StopCoroutine(activeSequence);
+        activeSequence = StartCoroutine(SpawnSequenceCo(count, firstDelay, perSpawnInterval));
+        return activeSequence;
+    }
+
+    IEnumerator SpawnSequenceCo(int count, float firstDelay, float perSpawnInterval)
+    {
+        if (firstDelay > 0f) yield return new WaitForSeconds(firstDelay);
+
+        for (int i = 0; i < count; i++)
+        {
+            SpawnOne();
+            if (perSpawnInterval > 0f)
+                yield return new WaitForSeconds(perSpawnInterval);
+            else
+                yield return null; // at least yield a frame
+        }
+
+        activeSequence = null;
+    }
+
     void SpawnOne()
     {
-        if (asteroidPrefabs == null || asteroidPrefabs.Length == 0) return;
+        if (asteroidPrefabs == null || asteroidPrefabs.Length == 0)
+        {
+            Debug.LogWarning("AsteroidSpawner: no asteroidPrefabs assigned.");
+            return;
+        }
 
         Vector2 center = centerRef ? (Vector2)centerRef.position : fallbackCenter;
 
-        // deterministic or random angle
-        float angle = useSeed ? (float)(rng.NextDouble() * Mathf.PI * 2f)
-                              : Random.Range(0f, Mathf.PI * 2f);
+        float angle = (useSeed && rng != null)
+            ? (float)(rng.NextDouble() * Mathf.PI * 2f)
+            : Random.Range(0f, Mathf.PI * 2f);
 
         Vector2 pos = center + new Vector2(Mathf.Cos(angle), Mathf.Sin(angle)) * spawnRadius;
 
-        // pick a random variant from the array
-        int idx = useSeed ? rng.Next(asteroidPrefabs.Length) : Random.Range(0, asteroidPrefabs.Length);
-        var prefab = asteroidPrefabs[idx];
+        int idx = (useSeed && rng != null)
+            ? rng.Next(asteroidPrefabs.Length)
+            : Random.Range(0, asteroidPrefabs.Length);
 
+        var prefab = asteroidPrefabs[idx];
         var go = Instantiate(prefab, pos, Quaternion.identity);
         var a = go.GetComponent<Asteroid>();
         if (a != null) a.Init(pos, center);

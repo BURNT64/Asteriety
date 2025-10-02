@@ -8,11 +8,11 @@ public class Asteroid : MonoBehaviour
     public float cleanupRadius = 30f;
 
     [Header("Combat")]
-    public int contactDamage = 1; // damage dealt to player on collision
+    public int contactDamage = 1;
 
     [Header("Drops & VFX")]
     public GameObject debrisPickupPrefab;
-    public GameObject explosionPrefab;   // optional small particle pop
+    public GameObject explosionPrefab;
 
     int hp;
     Vector2 vel;
@@ -43,8 +43,10 @@ public class Asteroid : MonoBehaviour
     {
         if (dying) return;
         transform.Translate(vel * Time.deltaTime, Space.World);
+
+        // IMPORTANT: if it drifts past cleanup, notify WaveDirector and despawn
         if (((Vector2)transform.position - center).sqrMagnitude > cleanupRadius * cleanupRadius)
-            Destroy(gameObject);
+            DespawnSilently();
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -54,7 +56,7 @@ public class Asteroid : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             var hpComp = other.GetComponent<PlayerHealth>();
-            if (hpComp != null) hpComp.TakeHit(contactDamage); // use per-asteroid damage
+            if (hpComp != null) hpComp.TakeHit(contactDamage);
             ExplodeAndDie();
         }
     }
@@ -64,15 +66,17 @@ public class Asteroid : MonoBehaviour
         if (dying) return;
         dying = true;
 
-        // Shake on asteroid death
+        // camera shake
         FindObjectOfType<CameraShake>()?.Shake(0.08f, 0.10f);
 
+        // VFX
         if (explosionPrefab)
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 
+        // Drops
         if (debrisPickupPrefab != null)
         {
-            int count = Random.Range(1, 3); // 1-2
+            int count = Random.Range(1, 3); // 1–2
             for (int i = 0; i < count; i++)
             {
                 Vector2 off = Random.insideUnitCircle * 0.3f;
@@ -80,7 +84,22 @@ public class Asteroid : MonoBehaviour
             }
         }
 
-        // If you add a WaveDirector later, notify it here.
+        // notify wave director on death
+        var dir = FindObjectOfType<WaveDirector>();
+        if (dir) dir.OnAsteroidDied();
+
+        Destroy(gameObject);
+    }
+
+    // NEW: cleanup path that still notifies WaveDirector but skips VFX/drops
+    void DespawnSilently()
+    {
+        if (dying) return;
+        dying = true;
+
+        var dir = FindObjectOfType<WaveDirector>();
+        if (dir) dir.OnAsteroidDied();
+
         Destroy(gameObject);
     }
 }
