@@ -21,6 +21,3 @@ Every 5th wave escalates into a boss encounter with unique mechanics.
 
 ## 🤝 Contributing
 This is a solo portfolio project, but feedback and suggestions are welcome!
-
-## 📜 License
-MIT License (you can change this later if you prefer)
