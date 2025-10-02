@@ -64,6 +64,9 @@ public class Asteroid : MonoBehaviour
         if (dying) return;
         dying = true;
 
+        // Shake on asteroid death
+        FindObjectOfType<CameraShake>()?.Shake(0.08f, 0.10f);
+
         if (explosionPrefab)
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 

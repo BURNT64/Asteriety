@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public enum FireMode { Auto, Semi }
@@ -7,6 +8,7 @@ public class WeaponMount : MonoBehaviour
 {
     [Header("Refs")]
     public GameObject bulletPrefab;
+    public GameObject muzzleFlash; // assign the child MuzzleFlash in inspector
 
     [Header("Firing")]
     public FireMode fireMode = FireMode.Auto;
@@ -69,6 +71,16 @@ public class WeaponMount : MonoBehaviour
         var go = Instantiate(bulletPrefab, transform.position, transform.rotation);
         var b = go.GetComponent<Bullet>();
         if (b != null) b.Init(dir); // damage comes from the prefab now
+
+        if (muzzleFlash != null)
+            StartCoroutine(FlashRoutine());
+    }
+
+    IEnumerator FlashRoutine()
+    {
+        muzzleFlash.SetActive(true);
+        yield return new WaitForSeconds(0.03f);
+        muzzleFlash.SetActive(false);
     }
 
     static Vector2 RotateDeg(Vector2 v, float degrees)

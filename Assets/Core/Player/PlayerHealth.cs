@@ -39,6 +39,10 @@ public class PlayerHealth : MonoBehaviour
         hp = Mathf.Max(0, hp - dmg);
         UpdateLabel();
         HitFlash();
+
+        // Shake on hit
+        FindObjectOfType<CameraShake>()?.Shake(0.12f, 0.15f);
+
         cd = hitCooldown;
         if (hp <= 0) GameOver();
     }

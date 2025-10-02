@@ -140,4 +140,4 @@ MonoBehaviour:
   cleanupRadius: 20
   contactDamage: 2
   debrisPickupPrefab: {fileID: 1061433892538881913, guid: 91e4ea7fd042da34e822af9ca72cfc8c, type: 3}
-  explosionPrefab: {fileID: 0}
+  explosionPrefab: {fileID: 4702614742804640196, guid: eeb84bd3b53f339479f5c6e87cdffa01, type: 3}

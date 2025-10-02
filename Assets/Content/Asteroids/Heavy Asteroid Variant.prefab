@@ -33,11 +33,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2238594802099059084, guid: 8885192611ea8834d9a21543eb042795, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -636.3491
+      value: 6.794779
       objectReference: {fileID: 0}
     - target: {fileID: 2238594802099059084, guid: 8885192611ea8834d9a21543eb042795, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 172.09702
+      value: -13.9789
       objectReference: {fileID: 0}
     - target: {fileID: 2238594802099059084, guid: 8885192611ea8834d9a21543eb042795, type: 3}
       propertyPath: m_LocalPosition.z
@@ -87,5 +87,9 @@ PrefabInstance:
       propertyPath: contactDamage
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 7909571159203988719, guid: 8885192611ea8834d9a21543eb042795, type: 3}
+      propertyPath: explosionPrefab
+      value: 
+      objectReference: {fileID: 4702614742804640196, guid: eeb84bd3b53f339479f5c6e87cdffa01, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8885192611ea8834d9a21543eb042795, type: 3}

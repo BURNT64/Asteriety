@@ -19,6 +19,10 @@ PrefabInstance:
       propertyPath: contactDamage
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4397732908196847369, guid: b4bfbe1491294b54bbb90bccce515f34, type: 3}
+      propertyPath: explosionPrefab
+      value: 
+      objectReference: {fileID: 4702614742804640196, guid: eeb84bd3b53f339479f5c6e87cdffa01, type: 3}
     - target: {fileID: 5751806781084885610, guid: b4bfbe1491294b54bbb90bccce515f34, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -33,11 +37,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5751806781084885610, guid: b4bfbe1491294b54bbb90bccce515f34, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -636.3491
+      value: 8.010487
       objectReference: {fileID: 0}
     - target: {fileID: 5751806781084885610, guid: b4bfbe1491294b54bbb90bccce515f34, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 172.09702
+      value: -16.560932
       objectReference: {fileID: 0}
     - target: {fileID: 5751806781084885610, guid: b4bfbe1491294b54bbb90bccce515f34, type: 3}
       propertyPath: m_LocalPosition.z
