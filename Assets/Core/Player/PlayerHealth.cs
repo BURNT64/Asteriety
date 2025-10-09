@@ -47,6 +47,12 @@ public class PlayerHealth : MonoBehaviour
         if (hp <= 0) GameOver();
     }
 
+    public void Heal(int amt)
+    {
+        hp = Mathf.Min(maxHP, hp + amt);
+        UpdateLabel();
+    }
+
     void UpdateLabel()
     {
         if (hpLabel != null) hpLabel.text = "HP: " + hp;

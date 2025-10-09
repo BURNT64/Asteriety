@@ -14,34 +14,35 @@ public class WeaponMount : MonoBehaviour
     public FireMode fireMode = FireMode.Auto;
     public float fireRate = 6f;
 
+    [Header("Bullet Scaling")]
+    public float bulletSpeedMultiplier = 1f; // upgraded via shop
+
     [Header("Shot Shape")]
     public int projectilesPerShot = 1;
     public float spreadDeg = 0f;
 
     float cooldown;
 
+    public bool inputEnabled = true;
+    public void SetInputEnabled(bool value) => inputEnabled = value;
+
     void Update()
     {
+        if (!inputEnabled) return;   // <- gate all firing input
+
         cooldown = Mathf.Max(0f, cooldown - Time.deltaTime);
         float interval = 1f / Mathf.Clamp(fireRate, 0.01f, 50f);
 
         if (fireMode == FireMode.Semi)
         {
             if (Input.GetMouseButtonDown(0) && cooldown <= 0f)
-            {
-                FireOneBurst();
-                cooldown = interval;
-            }
+            { FireOneBurst(); cooldown = interval; }
         }
         else
         {
             if (Input.GetMouseButton(0))
             {
-                while (cooldown <= 0f)
-                {
-                    FireOneBurst();
-                    cooldown += interval;
-                }
+                while (cooldown <= 0f) { FireOneBurst(); cooldown += interval; }
             }
         }
     }
@@ -70,10 +71,11 @@ public class WeaponMount : MonoBehaviour
     {
         var go = Instantiate(bulletPrefab, transform.position, transform.rotation);
         var b = go.GetComponent<Bullet>();
-        if (b != null) b.Init(dir); // damage comes from the prefab now
-
-        if (muzzleFlash != null)
-            StartCoroutine(FlashRoutine());
+        if (b != null)
+        {
+            b.Init(dir);
+            b.speed *= bulletSpeedMultiplier; // apply upgrade scaling
+        }
     }
 
     IEnumerator FlashRoutine()
